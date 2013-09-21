@@ -1,6 +1,12 @@
+#these might be just installed on the heroku instance, that will save some computational time
+
 from PIL import Image
 from PIL.ExifTags import TAGS
- 
+from urllib import FancyURLopener
+import os
+import sys
+
+
 def get_exif(fn):
     ret = {}
     i = Image.open(fn)
@@ -26,3 +32,20 @@ def get_exif(fn):
                  ret[decoded] = None
 
     return ret
+
+
+#prevents websites thinking that this code is from a spam/robot/hacker, even though it is...
+class MyOpener(FancyURLopener):
+    version = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'
+
+
+
+if len(sys.argv) == 2:
+    myopener = MyOpener()
+    myopener.retrieve(sys.argv[1], "file.jpg")
+    exif = get_exif("file.jpg")
+    #store into rails db?!
+    print exif
+    os.remove("file.jpg")
+else:
+    sys.exit("Incorrect number of arguments")

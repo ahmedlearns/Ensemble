@@ -1,0 +1,23 @@
+<h1>Listing scrapboards</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @scrapboards.each do |scrapboard| %>
+  <tr>
+    <td><%= scrapboard.name %></td>
+    <td><%= link_to 'Show', scrapboard %></td>
+    <td><%= link_to 'Edit', edit_scrapboard_path(scrapboard) %></td>
+    <td><%= link_to 'Destroy', scrapboard, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Scrapboard', new_scrapboard_path %>
