@@ -1,0 +1,2 @@
+module ScrapboardsHelper
+end
