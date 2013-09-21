@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<%= @image.path %>
+
+<p>
+  <b>Latitude:</b>
+  <%= @image.latitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @image.longitude %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @image.name %>
+</p>
+
+<p>
+  <b>Capture time:</b>
+  <%= @image.capture_time %>
+</p>
+
+<p>
+  <b>Model:</b>
+  <%= @image.model %>
+</p>
+
+
+<%= link_to 'Edit', edit_image_path(@image) %> |
+<%= link_to 'Back', images_path %>
