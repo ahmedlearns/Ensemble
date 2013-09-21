@@ -42,9 +42,11 @@ def findKeyPoints(img, template, distance=200):
     dist = [dist[i] for i in indices]
     idx = [idx[i] for i in indices]
     tkp_final = []
+    td_final = []
     for i, dis in itertools.izip(idx, dist):
         if dis < distance:
             tkp_final.append(tkp[i])
+
 
     return skp_final, tkp_final
 
