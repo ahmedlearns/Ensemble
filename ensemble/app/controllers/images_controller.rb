@@ -15,6 +15,9 @@ class ImagesController < ApplicationController
   def show
     @image = Image.find(params[:id])
 
+    # run the worker that will extract the features
+    ExtractFeaturesWorker.perform_async(@image.id)
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @image }
