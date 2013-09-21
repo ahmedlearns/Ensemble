@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  latitude: 9.99
+  longitude: 9.99
+  name: MyString
+  capture_time: 2013-09-21 14:28:26
+  model: MyString
+
+two:
+  latitude: 9.99
+  longitude: 9.99
+  name: MyString
+  capture_time: 2013-09-21 14:28:26
+  model: MyString

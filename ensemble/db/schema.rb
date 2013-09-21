@@ -11,7 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130921140410) do
+ActiveRecord::Schema.define(:version => 20130921184921) do
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "images", :force => true do |t|
+    t.decimal  "latitude"
+    t.decimal  "longitude"
+    t.string   "name"
+    t.datetime "capture_time"
+    t.string   "model"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "scrapboard_id"
+    t.integer  "group_id"
+    t.string   "path"
+  end
 
   create_table "scrapboards", :force => true do |t|
     t.string   "name"
