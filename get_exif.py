@@ -13,6 +13,7 @@ def get_exif(fn):
         i = Image.open(fn)
         info = i._getexif()
     except: 
+       os.remove(fn)
        return 1 
 
     for tag, value in info.items():
