@@ -1,12 +1,25 @@
 class ExtractFeaturesWorker
   include Sidekiq::Worker
+  sidekiq_options retry: false
 
   def perform(id)
-    puts "Doing hard work on #{Image.find(id).id}"
+    image = Image.find(id)
+    puts "Doing hard work on #{image.id}"
 
-    uri = URI.parse("http://pygments.appspot.com/")
-    request = Net::HTTP.post_form(uri)#, lang: @snippet.language, code: @snippet.plain_code)
-#    @snippet.update_attribute(:highlighted_code, request.body)
-    puts request
+    port = 8888
+    host = "ec2-54-224-83-142.compute-1.amazonaws.com"
+    socket = TCPSocket.open(host,port)
+
+    path = image.path
+    string_to_send = {script: 0, url: path}
+    socket.puts(string_to_send.to_json)
+    puts string_to_send.to_json
+
+    #uri = URI.parse("ec2-54-224-83-142.compute-1.amazonaws.com")
+    #request = Net::HTTP.post_form(uri, lang: "aaa", code: "asas")
+
+    socket.close()
+
+    #    @snippet.update_attribute(:highlighted_code, request.body)
   end
 end
