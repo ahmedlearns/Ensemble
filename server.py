@@ -1,5 +1,8 @@
+#!/usr/bin/python
+
 # Echo server program
 import socket
+import json
 
 HOST = ''                 # Symbolic name meaning all available interfaces
 PORT = 8888              # Arbitrary non-privileged port
@@ -11,6 +14,11 @@ while 1:
     print 'Connected by', addr
     while 1:
         data = conn.recv(1024)
+	try:
+		string = json.loads(data)
+	except ValueError, e:
+		break
+	print "DECODED JSON: " + str(string)
         if not data: break
-            print data
+        print data
     conn.close()
