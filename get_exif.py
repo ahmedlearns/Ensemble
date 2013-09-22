@@ -41,6 +41,7 @@ if len(sys.argv) == 2:
     myopener = MyOpener()
     myopener.retrieve(sys.argv[1], "file.jpg")
     exif = get_exif("file.jpg")
+    return exif
     #store into rails db?!
     os.remove("file.jpg")
 else:

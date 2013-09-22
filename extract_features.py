@@ -41,8 +41,11 @@ def extract_features(img):
 
 def get_exif(fn):
     ret = {}
-    i = Image.open(fn)
-    info = i._getexif()
+    try:
+        i = Image.open(fn)
+        info = i._getexif()
+    except:
+        sys.exit()
     for tag, value in info.items():
         decoded = TAGS.get(tag, tag)
         if decoded in ["Make", "DateTime", "Model"]:
