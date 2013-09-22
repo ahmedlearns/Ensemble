@@ -16,7 +16,7 @@ while 1:
         data = conn.recv(1024)
 	try:
 		string = json.loads(data)
-		print "\n\n\n" + string['url']['path']['url']
+		print "\n\n\n" + str(string['url']['path']['url'])
 	except ValueError, e:
 		break
 	print "DECODED JSON: " + str(string)
