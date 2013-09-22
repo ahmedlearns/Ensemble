@@ -1,4 +1,10 @@
 Ensemble::Application.routes.draw do
+  resources :groups
+
+
+  resources :images
+
+
   resources :scrapboards
 
 

@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import itertools
 import sys
+import pickle
 
 def findKeyPoints(img, template, distance=200):
     detector = cv2.FeatureDetector_create("SIFT")
@@ -12,6 +13,62 @@ def findKeyPoints(img, template, distance=200):
 
     tkp = detector.detect(template)
     tkp, td = descriptor.compute(template, tkp)
+
+    print("length of pre tkp: "+ str(len(tkp)))
+    print("length of pre td: "+ str(len(td)))
+    print("length of pre skp: "+ str(len(skp)))
+    print("length of pre sd: "+ str(len(sd)))
+
+    
+
+    ###############################################################################################
+
+    skp_serializable = []
+    for kp in skp:
+      skp_serializable.append((kp.pt, kp.size, kp.angle, kp.response, kp.octave, kp.class_id))
+
+    f = open("kp_dump.pkl", 'wb')
+    pickle.dump(skp_serializable, f)
+    f.close()
+    f = open("des_dump.pkl", 'wb')
+    pickle.dump(sd, f)
+    f.close()
+
+    skp_serializable = pickle.load(open("kp_dump.pkl", 'r'))
+    sd = pickle.load(open("des_dump.pkl", 'r'))
+
+    skp = []
+    for kp in skp_serializable:
+      skp.append(cv2.KeyPoint(x=kp[0][0], y=kp[0][1], _size=kp[1], _angle=kp[2], 
+                        _response=kp[3], _octave=kp[4], _class_id=kp[5]))
+
+
+
+    tkp_serializable = []
+    for kp in tkp:
+      tkp_serializable.append((kp.pt, kp.size, kp.angle, kp.response, kp.octave, kp.class_id))
+
+    f = open("kp_dump.pkl", 'w')
+    pickle.dump(tkp_serializable, f)
+    f.close()
+    f = open("des_dump.pkl", 'w')
+    pickle.dump(td, f)
+    f.close()
+
+    tkp_serializable = pickle.load(open("kp_dump.pkl", 'r'))
+    td = pickle.load(open("des_dump.pkl", 'r'))
+
+    tkp = []
+    for kp in tkp_serializable:
+      tkp.append(cv2.KeyPoint(x=kp[0][0], y=kp[0][1], _size=kp[1], _angle=kp[2], 
+                        _response=kp[3], _octave=kp[4], _class_id=kp[5]))
+
+    ###########################################################################################
+
+    print("length of post tkp: "+ str(len(tkp)))
+    print("length of post td: "+ str(len(td)))
+    print("length of post skp: "+ str(len(skp)))
+    print("length of post sd: "+ str(len(sd)))
 
     flann_params = dict(algorithm=1, trees=4)
     flann = cv2.flann_Index(sd, flann_params)
@@ -83,5 +140,5 @@ def match():
     newimg = drawKeyPoints(img, temp, skp, tkp, num)
     cv2.imshow("image", newimg)
     cv2.waitKey(0)
-    
+
 match()

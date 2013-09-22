@@ -10,7 +10,7 @@ except socket.error, msg:
  
 print 'Socket Created'
  
-host = 'localhost'
+host = 'ec2-54-224-83-142.compute-1.amazonaws.com'
 port = 8888
  
 try:
